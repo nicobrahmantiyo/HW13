@@ -1,25 +1,7 @@
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  HStack,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Text,
-  useDisclosure,
-  useToast,
-  VStack,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../modules/fetch";
+import { Button, Flex, FormControl, FormLabel, HStack, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast, VStack } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../modules/fetch';
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,27 +10,18 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     if (token) {
       setIsLogin(true);
     }
-  }, [window.localStorage.getItem("token")]);
+  }, [window.localStorage.getItem('token')]);
 
   return (
-    <Flex
-      w="full"
-      as="nav"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      padding="1rem"
-      bg="teal.500"
-      color="white"
-    >
+    <Flex w="full" as="nav" align="center" justify="space-between" wrap="wrap" padding="1rem" bgGradient="linear(to-l, #132043,#DDF2FD)" color="white">
       <Link to="/">
         <Flex align="center" mr={5} cursor="pointer">
-          <Text fontSize="xl" fontWeight="bold">
-            My Website
+          <Text bgGradient="linear(to-l, #7928CA, #FF0080)" bgClip="text" fontSize="xl" fontWeight="bold">
+            Home
           </Text>
         </Flex>
       </Link>
@@ -66,9 +39,9 @@ const Navbar = () => {
           <Button
             colorScheme="blue"
             onClick={() => {
-              window.localStorage.removeItem("token");
+              window.localStorage.removeItem('token');
               setIsLogin(false);
-              navigate("/")
+              navigate('/');
             }}
           >
             Logout
@@ -82,18 +55,15 @@ const Navbar = () => {
           onSubmit={async (e) => {
             e.preventDefault();
             try {
-              const token = await loginUser(
-                e.target.email.value,
-                e.target.password.value
-              );
-              window.localStorage.setItem("token", token.token);
-              navigate("/");
+              const token = await loginUser(e.target.email.value, e.target.password.value);
+              window.localStorage.setItem('token', token.token);
+              navigate('/');
               onClose();
             } catch (err) {
               toast({
-                title: "Error",
+                title: 'Error',
                 description: err.message,
-                status: "error",
+                status: 'error',
                 duration: 3000,
                 isClosable: true,
               });
@@ -108,19 +78,11 @@ const Navbar = () => {
               <VStack>
                 <FormControl isRequired>
                   <FormLabel>Email</FormLabel>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Enter your email address"
-                  />
+                  <Input name="email" type="email" placeholder="Enter your email address" />
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>Password</FormLabel>
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="Enter your password"
-                  />
+                  <Input type="password" name="password" placeholder="Enter your password" />
                 </FormControl>
               </VStack>
             </ModalBody>
@@ -129,9 +91,7 @@ const Navbar = () => {
                 Login
               </Button>
               <Link to="/register" onClick={onClose}>
-                <Button variant="ghost">
-                  Doesn't Have Account? Click here
-                </Button>
+                <Button variant="ghost">Doesn't Have Account? Click here</Button>
               </Link>
             </ModalFooter>
           </ModalContent>

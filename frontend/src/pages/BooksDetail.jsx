@@ -1,23 +1,7 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-  Skeleton,
-  Text,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { deleteBook, getBookDetailById } from "../modules/fetch";
+import { Box, Button, Flex, Heading, HStack, Image, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Skeleton, Text } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { deleteBook, getBookDetailById } from '../modules/fetch';
 
 export default function BookDetails() {
   const [book, setBook] = useState(null);
@@ -41,7 +25,7 @@ export default function BookDetails() {
   const handleDeleteBook = async () => {
     try {
       await deleteBook(id);
-      navigate("/");
+      navigate('/');
     } catch (e) {
       console.log(e);
     }
@@ -54,10 +38,7 @@ export default function BookDetails() {
       ) : (
         <Flex my="6">
           <Box w="300px">
-            <Image
-              src={`http://localhost:8000/${book.image}`}
-              alt={book.title}
-            />
+            <Image src={`http://localhost:8000/${book.image}`} alt={book.title} />
           </Box>
           <Box ml="8">
             <Heading as="h1" size="lg">
@@ -85,9 +66,7 @@ export default function BookDetails() {
               <PopoverArrow />
               <PopoverCloseButton />
               <PopoverHeader>Confirmation!</PopoverHeader>
-              <PopoverBody>
-                Are you sure you want to delete this book?
-              </PopoverBody>
+              <PopoverBody>Are you sure you want to delete this book?</PopoverBody>
               <Button onClick={handleDeleteBook} colorScheme="red">
                 Delete
               </Button>

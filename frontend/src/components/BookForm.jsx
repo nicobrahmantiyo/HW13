@@ -1,14 +1,6 @@
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Image,
-  Input,
-  useToast,
-  VStack,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { createBook, editBook } from "../modules/fetch";
+import { Button, FormControl, FormLabel, Image, Input, useToast, VStack } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { createBook, editBook } from '../modules/fetch';
 
 export default function BookForm({ bookData }) {
   const toast = useToast();
@@ -18,9 +10,9 @@ export default function BookForm({ bookData }) {
     event.preventDefault();
     if (!selectedImage) {
       toast({
-        title: "Error",
-        description: "Please select image",
-        status: "error",
+        title: 'Error',
+        description: 'Please select image',
+        status: 'error',
         duration: 5000,
         isClosable: true,
       });
@@ -28,26 +20,19 @@ export default function BookForm({ bookData }) {
     const formData = new FormData(event.target);
     if (bookData) {
       try {
-        await editBook(
-          bookData.id,
-          formData.get("title"),
-          formData.get("author"),
-          formData.get("publisher"),
-          parseInt(formData.get("year")),
-          parseInt(formData.get("pages"))
-        );
+        await editBook(bookData.id, formData.get('title'), formData.get('author'), formData.get('publisher'), parseInt(formData.get('year')), parseInt(formData.get('pages')));
         toast({
-          title: "Success",
-          description: "Book edited successfully",
-          status: "success",
+          title: 'Success',
+          description: 'Book edited successfully',
+          status: 'success',
           duration: 5000,
           isClosable: true,
         });
       } catch (error) {
         toast({
-          title: "Error",
-          description: error.response.data.message || "Something went wrong",
-          status: "error",
+          title: 'Error',
+          description: error.response.data.message || 'Something went wrong',
+          status: 'error',
           duration: 5000,
           isClosable: true,
         });
@@ -58,18 +43,18 @@ export default function BookForm({ bookData }) {
       await createBook(formData);
       event.target.reset();
       toast({
-        title: "Success",
-        description: "Book created successfully",
-        status: "success",
+        title: 'Success',
+        description: 'Book created successfully',
+        status: 'success',
         duration: 5000,
         isClosable: true,
       });
-      setSelectedImage("");
+      setSelectedImage('');
     } catch (error) {
       toast({
-        title: "Error",
-        description: error.response.data.message || "Something went wrong",
-        status: "error",
+        title: 'Error',
+        description: error.response.data.message || 'Something went wrong',
+        status: 'error',
         duration: 5000,
         isClosable: true,
       });
@@ -86,38 +71,26 @@ export default function BookForm({ bookData }) {
     <form onSubmit={handleSubmit}>
       <VStack spacing={4}>
         <FormControl>
-          <FormLabel>Title</FormLabel>
+          <FormLabel textAlign="center">Title</FormLabel>
           <Input name="title" required defaultValue={bookData?.title} />
         </FormControl>
         <FormControl>
-          <FormLabel>Author</FormLabel>
+          <FormLabel textAlign="center">Author</FormLabel>
           <Input name="author" required defaultValue={bookData?.author} />
         </FormControl>
         <FormControl>
-          <FormLabel>Publisher</FormLabel>
+          <FormLabel textAlign="center">Publisher</FormLabel>
           <Input name="publisher" required defaultValue={bookData?.publisher} />
         </FormControl>
         <FormControl>
-          <FormLabel>Year</FormLabel>
-          <Input
-            name="year"
-            type="number"
-            required
-            defaultValue={bookData?.year}
-          />
+          <FormLabel textAlign="center">Year</FormLabel>
+          <Input name="year" type="number" required defaultValue={bookData?.year} />
         </FormControl>
         <FormControl>
-          <FormLabel>Pages</FormLabel>
-          <Input
-            name="pages"
-            type="number"
-            required
-            defaultValue={bookData?.pages}
-          />
+          <FormLabel textAlign="center">Pages</FormLabel>
+          <Input name="pages" type="number" required defaultValue={bookData?.pages} />
         </FormControl>
-        {selectedImage && (
-          <Image w={64} src={selectedImage} alt="Selected Image" />
-        )}
+        {selectedImage && <Image w={64} src={selectedImage} alt="Selected Image" />}
         {!bookData?.image && (
           <FormControl>
             <FormLabel>Image</FormLabel>
@@ -132,8 +105,7 @@ export default function BookForm({ bookData }) {
             />
           </FormControl>
         )}
-
-        <Button type="submit">{bookData ? "Edit Book" : "Create Book"}</Button>
+        <Button type="submit">{bookData ? 'Edit Book' : 'Create Book'}</Button>
       </VStack>
     </form>
   );
